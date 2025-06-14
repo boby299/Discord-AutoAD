@@ -1,0 +1,30 @@
+import discord
+from discord.ext import tasks
+import asyncio
+
+TOKEN = "Discord token"  # Replace with discord token
+CHANNEL_IDS = [1374150509694554152, 1374150531609788536, 1375754075924205598]  # replace with trade channel IDs
+MESSAGE = "Ad here" # Replace with your AD
+
+class SelfBot(discord.Client):
+    async def on_ready(self):
+        print(f"Logged in as {self.user}")
+        self.send_message_task.start()
+
+    @tasks.loop(hours=6, minutes=23) # Chage amount of time between sending to channels
+    async def send_message_task(self):
+        for channel_id in CHANNEL_IDS:
+            channel = self.get_channel(channel_id)
+            if channel:
+                try:
+                    await channel.send(MESSAGE)
+                    print(f"Sent to {channel.name}")
+                except Exception as e:
+                    print(f"Failed to send to {channel_id}: {e}")
+
+    @send_message_task.before_loop
+    async def before_sending(self):
+        await self.wait_until_ready()
+
+client = SelfBot()
+client.run(TOKEN)
