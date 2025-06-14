@@ -11,16 +11,19 @@ class SelfBot(discord.Client):
         print(f"Logged in as {self.user}")
         self.send_message_task.start()
 
-    @tasks.loop(hours=6, minutes=23) # Chage amount of time between sending to channels
-    async def send_message_task(self):
-        for channel_id in CHANNEL_IDS:
-            channel = self.get_channel(channel_id)
-            if channel:
-                try:
-                    await channel.send(MESSAGE)
-                    print(f"Sent to {channel.name}")
-                except Exception as e:
-                    print(f"Failed to send to {channel_id}: {e}")
+    @tasks.loop(hours=6, minutes=30)
+async def send_message_task(self):
+    for channel_id in CHANNEL_IDS:
+        channel = self.get_channel(channel_id)
+        if channel:
+            try:
+                await channel.send(MESSAGE)
+                print(f"Sent message to {channel.name}")
+            except Exception as e:
+                print(f"Error sending message: {e}")
+            await asyncio.sleep(10)
+        else:
+            print(f"Channel {channel_id} not found.")
 
     @send_message_task.before_loop
     async def before_sending(self):
