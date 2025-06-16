@@ -2,9 +2,14 @@ import discord
 from discord.ext import tasks
 import asyncio
 
-TOKEN = "token"  # Replace with your actual token
-CHANNEL_IDS = [1317155322292338837, 1317155322292338837]  # Replace with your channel IDs
-MESSAGE = "Test"  # Replace with your message
+TOKEN = "Token"  # Replace with your actual token
+CHANNEL_IDS = [1380756408982831265, 1377406352342909090, 1373427207191531600, 1380373801140879481, 1355719043243573420, 1370046895208140860, 1308830998204780555, 1324603930310738001, 1382722688027590676]  # Replace with your channel IDs
+MESSAGE = (
+    "# Looking for offers on most/all my accounts discord.gg/HdrHBw5E9S\n"
+    "# Buying vip+s or better ranked mfas cheap or bulk idc also nons if cheap\n"
+    "# Selling 3.2b+ networth, lvl 220+, ironman coop looking for offers"
+)
+
 
 class SelfBot(discord.Client):
     async def on_ready(self):
